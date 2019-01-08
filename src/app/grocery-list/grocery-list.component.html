@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row add-item" *ngIf="afAuth.user | async as user; else showLogin">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm welcome-display">
+          <h1>Welcome {{userEmail}}!</h1>
+        </div>
+      </div>
+      <div class="row" class="create-form">
+        <div class="col-sm">
+            <form (ngSubmit)="addItem()" #inputForm="ngForm">
+              <div class="form-group">
+                <input type="text" class="form-control" id="createItem" required [(ngModel)]="createItem" name="createItemInputForm" #createItemInputForm="ngModel">
+              </div>
+              <button type="submit" class="btn btn-success" [disabled]="!inputForm.form.valid">Add Item</button>
+              <button type="button" class="btn btn-danger logout-button" (click)="logoutUser()">Logout</button>
+            </form>
+          </div>
+      </div>
+      <div class="row display-item">
+        <div class="col-sm">
+          <div *ngFor="let item of items | async">
+            <div class='grocery-display'>
+              <div class="delete-button"><button type="button" class="btn btn-danger round-button" (click)="deleteItem(item)">X</button></div>
+              <div class="grocery-item">
+                <div class="name-display">{{ item.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #showLogin>
+    <div class="row grocery-title">
+      <div class="col-sm">
+        <h1>Grocery List</h1>
+        <div class="lead">An Angular App that uses Firebase for groceries!</div>
+      </div>
+    </div>
+    <div class="row auth">
+        <div class="col-sm">
+          <div class="auth" *ngIf="!showCreateUserInputForm && !showLoginUserInputForm">
+            <button type="button" class="btn btn-primary auth-button" (click)="showLoginUserForm()">Login</button>  
+            <button type="button" class="btn btn-success auth-button" (click)="showCreateUserForm()">Create Account</button>
+          </div>
+          <div *ngIf="showCreateUserInputForm">
+            <form (ngSubmit)="createUser()" #createForm="ngForm">
+              <div class="form-group">
+                <label for="createUserEmailInput">Create Email</label>
+                <input type="email" class="form-control" id="createEmail" required [(ngModel)]="createEmail" name="createUserEmailInput" #createUserEmailInput="ngModel">
+                <label for="createUserPasswordInput">Create Password</label>
+                <input type="password" class="form-control" id="createPassword" required [(ngModel)]="createPassword" name="createUserPassswordInput" #createUserPasswordInput="ngModel">
+              </div>
+              <div class="input-buttons">
+                <button type="submit" class="btn btn-success" [disabled]="!createForm.valid">create user</button>
+                <button type="button" class="btn btn-danger" (click)="cancelButton()">cancel</button>
+              </div>
+            </form>
+          </div>
+          <div *ngIf="showLoginUserInputForm">
+            <form (ngSubmit)="loginUser()" #loginForm="ngForm">
+              <div class="form-group">
+                <label for="loginUserEmailInput">Login Email</label>
+                <input type="email" class="form-control" id="loginEmail" required [(ngModel)]="loginEmail" name="loginUserEmailInput" #loginUserEmailInput="ngModel">
+                <label for="loginUserPasswordInput">Login Password</label>
+                <input type="password" class="form-control" id="loginPassword" required [(ngModel)]="loginPassword" name="loginUserPassswordInput" #loginUserPasswordInput="ngModel">
+              </div>
+              <div class="input-buttons">
+                <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">login user</button>
+                <button type="button" class="btn btn-danger" (click)="cancelButton()">cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </ng-template>
+</div>

@@ -1,0 +1,80 @@
+.add-item{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    font-size: 2em;
+}
+
+.grocery-title{
+    padding-top: 1em;
+}
+
+.grocery-display{
+    display: flex;
+    justify-content: flex-start; 
+    font-size: 0.5em;
+}
+
+.grocery-item{
+    width: 40em;
+    border-bottom-style: solid;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.delete-button{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: .5em;
+}
+
+.round-button{    
+    border: none;
+    border-radius: 50%;
+}
+
+.name-display{
+    font-size: 2em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top:.5em;
+    padding-bottom: .5em;
+}
+
+.auth{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 1em;
+}
+
+.auth-button{
+    margin: 1em;
+}
+
+.logout-button{
+    margin: 1em;
+}
+
+.display-item{
+    border-top-style: solid;
+    border-top-color: white;
+}
+
+.create-form{
+    margin-bottom: 1em;
+}
+
+.welcome-display{
+    margin-bottom:0.5em;
+}
+
+.input-buttons{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 1em;
+}
+
+.input-buttons > button{
+    margin: 1em;
+}
