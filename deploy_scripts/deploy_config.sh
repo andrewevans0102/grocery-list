@@ -1,3 +1,5 @@
+cd ..
+
 export API_KEY='a'
 export AUTH_DOMAIN='b'
 export DATABASE_URL='c'
