@@ -5,6 +5,10 @@ export PROJECT_ID='d'
 export STORAGE_BUCKET='e'
 export MESSAGE_SENDER_ID='f'
 
+echo 'where are we here'
+pwd
+
+
 sed -i '' 's/\(API_KEY\)/'$API_KEY'/' /src/environments/environment.ts
 sed -i '' 's/\(AUTH_DOMAIN\)/'$AUTH_DOMAIN'/' /src/environments/environment.ts
 sed -i '' 's/\(DATABASE_URL\)/'$DATABASE_URL'/' /src/environments/environment.ts
