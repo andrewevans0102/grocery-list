@@ -7,6 +7,7 @@ export MESSAGE_SENDER_ID='f'
 
 echo 'where are we here'
 pwd
+ls
 
 
 sed -i '' 's/\(API_KEY\)/'$API_KEY'/' /src/environments/environment.ts
