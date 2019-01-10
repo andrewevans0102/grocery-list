@@ -1,5 +1,13 @@
 cd ..
 
+pwd
+
+cd /src/environments
+
+pwd
+
+ls -a
+
 export API_KEY='a'
 export AUTH_DOMAIN='b'
 export DATABASE_URL='c'
