@@ -7,7 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "coverage-report": "ng test --code-coverage --watch=true",
+    "delete-coverage": "rm -rf coverage",
+    "code-coverage": "npm run delete-coverage && npm run coverage-report",
+    "build-prod": "ng build --prod",
+    "test-prod": "ng test --watch=false",
+    "firebase-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
