@@ -18,4 +18,4 @@ jobs:
                 command: ls
             - run:
                 name: update config with environment variables
-                command: ./shell_scripts/update_config.sh
+                command: ./deploy_scripts/deploy_config.sh
