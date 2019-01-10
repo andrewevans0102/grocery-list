@@ -10,7 +10,7 @@ export const environment = {
     databaseURL: 'DATABASE_URL',
     projectId: 'PROJECT_ID',
     storageBucket: 'STORAGE_BUCKET',
-    messagingSenderId: 'MESSAGE_SENDER_ID'
+    messagingSenderId: 'MESSAGING_SENDER_ID'
   }
 };
 
