@@ -1,0 +1,15 @@
+
+version: 2
+jobs:
+    build:
+        working_directory: ~/project
+        docker:
+            - image: circleci/node:chakracore-8.11-browsers-legacy
+        steps:
+            - checkout
+            - run:
+                name: Show current branch
+                command: echo ${CIRCLE_BRANCH}
+            - run:
+                name: update config with environment variables
+                command: ./shell_scripts/update_config.sh
