@@ -35,6 +35,8 @@ export class GroceryListComponent {
         this.itemsCollection = this.afs.collection<Item>('items-' + this.userUiD);
         this.items = this.itemsCollection.valueChanges();
         this.userEmail = this.afAuth.auth.currentUser.email;
+        // when state changes occur show them in the console
+        this.afs.collection('items-' + this.userUiD).auditTrail().subscribe(console.log);
       }
     });
   }
@@ -99,6 +101,8 @@ export class GroceryListComponent {
   selectItems() {
     this.itemsCollection = this.afs.collection<Item>('items-' + this.userUiD);
     this.items = this.itemsCollection.valueChanges();
+    // when state changes occur show them in the console
+    this.afs.collection('items-' + this.userUiD).auditTrail().subscribe(console.log);
   }
 
   // async is not necessary here, just controlling the event loop
