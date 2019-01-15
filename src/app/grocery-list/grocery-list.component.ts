@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-
-export interface Item {
-  id: string;
-  name: string;
-}
+import { GroceryItem } from 'src/models/grocery-item';
+import { Item } from 'src/models/item';
 
 @Component({
   selector: 'app-grocery-list',
@@ -16,8 +13,6 @@ export interface Item {
 export class GroceryListComponent {
 
   createItem = '';
-  private itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<Item[]>;
   showLoginUserInputForm = false;
   showCreateUserInputForm = false;
   loginEmail = '';
@@ -25,32 +20,44 @@ export class GroceryListComponent {
   createEmail = '';
   createPassword = '';
   userEmail = '';
-  userUiD = '';
+  // create doc of type Item that represents the individual GroceryItems nested collection
+  groceryItemsDoc: AngularFirestoreDocument<Item>;
+  groceryItems: Observable<GroceryItem[]>;
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth) {
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        // When user is logged in on creation make sure to select values here
-        this.userUiD = user.uid;
-        this.itemsCollection = this.afs.collection<Item>('items-' + this.userUiD);
-        this.items = this.itemsCollection.valueChanges();
-        this.userEmail = this.afAuth.auth.currentUser.email;
-        // when state changes occur show them in the console
-        this.afs.collection('items-' + this.userUiD).auditTrail().subscribe(console.log);
+        // when logged in show user email here
+        this.userEmail = user.email;
+        // call method that selects all items when user is authenticated
+        this.selectItems(user.uid);
       }
     });
   }
 
-  addItem() {
-    const name = this.createItem;
+  // async is not necessary here, but using it to control event loop
+  async addItem() {
     const id = this.afs.createId();
-    const item: Item = { id, name};
-    this.itemsCollection.doc(id).set(item);
+    const groceryItem: GroceryItem = {
+      value: this.createItem,
+      id: id
+    };
+
+    this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').doc(id).set(groceryItem)
+      .then(
+        function(success) {
+          // when successful clear input field value here
+          this.createItem = '';
+        }.bind(this),
+        function(error) {
+          alert(error);
+        }
+      );
   }
 
   // async is not necessary here, but using it to control event loop
-  async deleteItem(item: Item) {
-    await this.itemsCollection.doc(item.id).delete()
+  async deleteItem(groceryItem: GroceryItem) {
+    this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').doc(groceryItem.id).delete()
       .catch(function(error) { alert(error); });
   }
 
@@ -91,24 +98,23 @@ export class GroceryListComponent {
           this.loginPassword = '';
           this.showLoginUserInputForm = false;
           this.showCreateUserInputForm = false;
-          this.selectItems();
+          this.userEmail = this.afAuth.auth.currentUser.email;
+          this.selectItems(this.afAuth.auth.currentUser.uid);
         }.bind(this),
         function(error) {
           alert(error);
       });
   }
 
-  selectItems() {
-    this.itemsCollection = this.afs.collection<Item>('items-' + this.userUiD);
-    this.items = this.itemsCollection.valueChanges();
-    // when state changes occur show them in the console
-    this.afs.collection('items-' + this.userUiD).auditTrail().subscribe(console.log);
+  selectItems(UiD: string) {
+    this.groceryItemsDoc = this.afs.doc<Item>('user/' + this.afAuth.auth.currentUser.uid);
+    this.groceryItems = this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').valueChanges();
+    // turn on logging if you want to see how the requests are sent
+    // this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').auditTrail().subscribe(console.log);
   }
 
   // async is not necessary here, just controlling the event loop
   async logoutUser() {
-    this.userEmail = '';
-    this.userUiD = '';
     await this.afAuth.auth.signOut()
       .catch(function(error) { alert(error); });
   }

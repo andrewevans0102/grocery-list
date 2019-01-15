@@ -22,11 +22,11 @@
       </div>
       <div class="row display-item">
         <div class="col-sm">
-          <div *ngFor="let item of items | async">
+          <div *ngFor="let groceryItem of groceryItems | async">
             <div class='grocery-display'>
-              <div class="delete-button"><button type="button" class="btn btn-danger round-button" (click)="deleteItem(item)">X</button></div>
+              <div class="delete-button"><button type="button" class="btn btn-danger round-button" (click)="deleteItem(groceryItem)">X</button></div>
               <div class="grocery-item">
-                <div class="name-display">{{ item.name }}</div>
+                <div class="name-display">{{ groceryItem.value }}</div>
               </div>
             </div>
           </div>
@@ -37,11 +37,8 @@
   <ng-template #showLogin>
     <div class="row grocery-title">
       <div class="col-sm">
-        <h1>Firebase Groceries</h1>
+        <h1>Firebase Groceries<img src='../../assets/header_image.png'></h1>
         <div class="lead">An Angular App that uses Firebase for groceries!</div>
-      </div>
-      <div class="col-sm">
-        <img src='../../assets/header_image.png'>
       </div>
     </div>
     <div class="row auth">
@@ -81,4 +78,10 @@
         </div>
       </div>
   </ng-template>
+  <div class="row attribution">
+    <a href="https://www.iconfinder.com/icons/532812/added_cart_checked_ecommerce_online_shopping_shopping_cart_icon">Image Developed by Eezy, click here for copyright and source information</a>
+  </div>
+  <div class="row">
+    <a href="https://creativecommons.org/licenses/by-sa/3.0/">Image License is Creative Commons, click here for more info</a>
+  </div>
 </div>
