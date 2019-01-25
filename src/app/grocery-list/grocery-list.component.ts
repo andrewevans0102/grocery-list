@@ -106,11 +106,11 @@ export class GroceryListComponent {
       });
   }
 
-  selectItems(UiD: string) {
-    this.groceryItemsDoc = this.afs.doc<Item>('user/' + this.afAuth.auth.currentUser.uid);
+  selectItems(uid: string) {
+    this.groceryItemsDoc = this.afs.doc<Item>('user/' + uid);
     this.groceryItems = this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').valueChanges();
     // turn on logging if you want to see how the requests are sent
-    // this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').auditTrail().subscribe(console.log);
+    this.groceryItemsDoc.collection<GroceryItem>('GroceryItems').auditTrail().subscribe(console.log);
   }
 
   // async is not necessary here, just controlling the event loop
