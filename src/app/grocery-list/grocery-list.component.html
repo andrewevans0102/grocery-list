@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-sm welcome-display">
-          <h1>Welcome {{userEmail}}!</h1>
+          <h1>Welcome {{ email }}!</h1>
         </div>
         <div class="col-sm">
           <img src='../../assets/header_image.png'>
@@ -48,12 +48,12 @@
             <button type="button" class="btn btn-success auth-button" (click)="showCreateUserForm()">Create Account</button>
           </div>
           <div *ngIf="showCreateUserInputForm">
-            <form (ngSubmit)="createUser()" #createForm="ngForm">
+            <form (ngSubmit)="createUser(email, password)" #createForm="ngForm">
               <div class="form-group">
                 <label for="createUserEmailInput">Create Email</label>
-                <input type="email" class="form-control" id="createEmail" required [(ngModel)]="createEmail" name="createUserEmailInput" #createUserEmailInput="ngModel">
+                <input type="email" class="form-control" id="createEmail" required [(ngModel)]="email" name="createUserEmailInput" #createUserEmailInput="ngModel">
                 <label for="createUserPasswordInput">Create Password</label>
-                <input type="password" class="form-control" id="createPassword" required [(ngModel)]="createPassword" name="createUserPassswordInput" #createUserPasswordInput="ngModel">
+                <input type="password" class="form-control" id="createPassword" required [(ngModel)]="password" name="createUserPassswordInput" #createUserPasswordInput="ngModel">
               </div>
               <div class="input-buttons">
                 <button type="submit" class="btn btn-success" [disabled]="!createForm.valid">create user</button>
@@ -62,12 +62,12 @@
             </form>
           </div>
           <div *ngIf="showLoginUserInputForm">
-            <form (ngSubmit)="loginUser()" #loginForm="ngForm">
+            <form (ngSubmit)="loginUser(email,password)" #loginForm="ngForm">
               <div class="form-group">
                 <label for="loginUserEmailInput">Login Email</label>
-                <input type="email" class="form-control" id="loginEmail" required [(ngModel)]="loginEmail" name="loginUserEmailInput" #loginUserEmailInput="ngModel">
+                <input type="email" class="form-control" id="loginEmail" required [(ngModel)]="email" name="loginUserEmailInput" #loginUserEmailInput="ngModel">
                 <label for="loginUserPasswordInput">Login Password</label>
-                <input type="password" class="form-control" id="loginPassword" required [(ngModel)]="loginPassword" name="loginUserPassswordInput" #loginUserPasswordInput="ngModel">
+                <input type="password" class="form-control" id="loginPassword" required [(ngModel)]="password" name="loginUserPassswordInput" #loginUserPasswordInput="ngModel">
               </div>
               <div class="input-buttons">
                 <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">login user</button>
