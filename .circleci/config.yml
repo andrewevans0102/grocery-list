@@ -30,6 +30,9 @@ jobs:
             #     name: Linting
             #     command: npm run lint
             - run:
+                name: show files
+                command: ls
+            - run:
                 name: Testing
                 command: npm run test-prod
             - run:
