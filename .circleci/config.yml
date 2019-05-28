@@ -26,9 +26,9 @@ jobs:
                 key: v1-dependencies-{{ checksum "package.json" }}
                 paths:
                     - node_modules
-            - run:
-                name: Linting
-                command: npm run lint
+            # - run:
+            #     name: Linting
+            #     command: npm run lint
             - run:
                 name: Testing
                 command: npm run test-prod
