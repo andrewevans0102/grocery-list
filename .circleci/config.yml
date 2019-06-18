@@ -30,6 +30,12 @@ jobs:
             - run:
                 name: copy new files
                 command: cp environment.prod.ts src/environments/environment.prod.ts
+            - run:
+                name: delete original copied files
+                command: rm -rf environment.ts
+            - run:
+                name: delete original copied files
+                command: rm -rf environment.prod.ts
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
