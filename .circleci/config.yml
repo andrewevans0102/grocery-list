@@ -13,8 +13,23 @@ jobs:
                 name: Show current directory
                 command: pwd
             - run:
-                name: environment variables
-                command: npm run environment-variables
+                name: environment file
+                command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $ENVIRONMENT
+            - run:
+                name: environment prod file
+                command: curl -H "Authorization:token $GITHUB_TOKEN" -H "Accept:application/vnd.github.v3.raw" -O -L $ENVIRONMENT_PROD
+            - run:
+                name: delete old enviornment file
+                command: rm -rf src/environments/environment.ts
+            - run:
+                name: delete old enviornment file
+                command: rm -rf src/environments/environment.prod.ts
+            - run:
+                name: copy new files
+                command: cp environment.ts src/environments/environment.ts
+            - run:
+                name: copy new files
+                command: cp environment.prod.ts src/environments/environment.prod.ts
             - restore_cache:
                 keys:
                     - v1-dependencies-{{ checksum "package.json" }}
